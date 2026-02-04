@@ -62,8 +62,8 @@ yesButton.addEventListener('click', () => {
     }, 300);
 });
 
-// No button hover handler
-noButton.addEventListener('mouseenter', () => {
+// No button move function
+function moveNoButton() {
     if (isAccepted) return;
     
     // Get container bounds
@@ -85,6 +85,21 @@ noButton.addEventListener('mouseenter', () => {
     // Update text
     noText.textContent = noPhrases[Math.min(noCount, noPhrases.length - 1)];
     noCount++;
+}
+
+// No button hover handler (desktop)
+noButton.addEventListener('mouseenter', moveNoButton);
+
+// No button touch/click handler (mobile)
+noButton.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    moveNoButton();
+});
+
+// Also handle click attempts on mobile
+noButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    moveNoButton();
 });
 
 // Reset no button position when mouse leaves container
